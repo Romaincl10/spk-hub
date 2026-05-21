@@ -3,13 +3,13 @@ import { api } from '../utils/api.js';
 import ToolCard from './ToolCard.jsx';
 
 export default function Hub({ user, onLogout }) {
-  const [tools, setTools] = useState([]);
+  const [sections, setSections] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     api.tools()
-      .then(d => setTools(d.tools))
-      .catch(() => setTools([]))
+      .then(d => setSections(d.sections || []))
+      .catch(() => setSections([]))
       .finally(() => setLoading(false));
   }, []);
 
@@ -42,16 +42,38 @@ export default function Hub({ user, onLogout }) {
       </header>
 
       <main className="max-w-6xl mx-auto px-6 py-12">
-        <div className="mb-10">
+        <div className="mb-12">
           <h1 className="text-white text-2xl font-bold mb-2">Bonjour {user.name.split(' ')[0]}.</h1>
-          <p className="text-white/50">Vos outils internes SPK.</p>
+          <p className="text-white/50">Vos outils.</p>
         </div>
 
         {loading ? (
           <div className="text-white/40">Chargement…</div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {tools.map(t => <ToolCard key={t.id} tool={t} />)}
+          <div className="space-y-12">
+            {sections.map(section => (
+              <section key={section.id}>
+                <div className="flex items-baseline gap-3 mb-5">
+                  <h2 className="text-white/80 text-xs uppercase tracking-[0.25em] font-semibold">
+                    {section.title}
+                  </h2>
+                  <div className="flex-1 h-px bg-white/10" />
+                  <span className="text-white/30 text-xs">
+                    {section.tools.length} {section.tools.length > 1 ? 'outils' : 'outil'}
+                  </span>
+                </div>
+
+                {section.tools.length === 0 ? (
+                  <div className="border border-dashed border-white/10 rounded-lg p-8 text-center">
+                    <p className="text-white/30 text-sm">Aucun outil pour l'instant.</p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                    {section.tools.map(t => <ToolCard key={t.id} tool={t} />)}
+                  </div>
+                )}
+              </section>
+            ))}
           </div>
         )}
       </main>
