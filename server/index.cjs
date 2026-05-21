@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const bcrypt = require('bcryptjs');
 const path = require('path');
 const fs = require('fs');
 
@@ -13,6 +14,32 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, 'data');
 
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+
+// Auto-seed Germain BUTROT au boot si users.json absent ou compte manquant.
+// Permet de fonctionner sans volume persistant (chaque deploy recrée le user).
+function autoSeedGermain() {
+  const usersFile = path.join(DATA_DIR, 'users.json');
+  const password = process.env.GERMAIN_PASSWORD;
+  if (!password) {
+    console.warn('[seed] GERMAIN_PASSWORD non défini — skip auto-seed');
+    return;
+  }
+  let users = [];
+  if (fs.existsSync(usersFile)) {
+    try { users = JSON.parse(fs.readFileSync(usersFile, 'utf8')); } catch {}
+  }
+  if (users.find(u => u.login === 'germain.butrot')) return;
+  users.push({
+    login: 'germain.butrot',
+    name: 'Germain BUTROT',
+    role: 'admin',
+    passwordHash: bcrypt.hashSync(password, 12),
+  });
+  fs.writeFileSync(usersFile, JSON.stringify(users, null, 2));
+  console.log('[seed] germain.butrot créé automatiquement au boot');
+}
+
+autoSeedGermain();
 
 const app = express();
 
