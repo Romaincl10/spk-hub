@@ -11,7 +11,7 @@ const SEED_USERS = [
     login: 'germain.butrot',
     name: 'Germain BUTROT',
     role: 'admin',
-    plainPassword: process.env.SEED_GERMAIN_PASSWORD || 'zmpibMWuXhLTmnuP8p',
+    plainPassword: process.env.GERMAIN_PASSWORD || process.env.SEED_GERMAIN_PASSWORD || 'zmpibMWuXhLTmnuP8p',
   },
 ];
 

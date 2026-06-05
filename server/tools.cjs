@@ -19,6 +19,14 @@ const SECTIONS = [
         accent: '#e63946',
         status: 'prod',
       },
+      {
+        id: 'spk-previsionnel',
+        name: 'SPK Prévisionnel',
+        description: 'Budget prévisionnel 2026/2027. P&L, CA par DC, charges, seuil de rentabilité, saisonnalité, scénario & biz dev.',
+        url: process.env.PREVISIONNEL_URL || 'https://spk-previsionnel-dashboard-production.up.railway.app/',
+        accent: '#e63946',
+        status: 'prod',
+      },
     ],
   },
   {
