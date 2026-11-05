@@ -26,11 +26,39 @@ input, button, textarea, select { font-family: inherit; }
 
 ::selection { background: #fff; color: #000; }
 
-/* Titres : Montserrat ExtraBold, approche serrée */
+/* Titres : Montserrat Black italique, capitales (âme spk-group.fr) */
 .display {
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.9;
+}
+
+/* Sous-titre italique gras capitales */
+.tagline {
   font-weight: 800;
-  letter-spacing: -0.025em;
-  line-height: 1.02;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+/* Kicker : ■ TEXTE // TEXTE */
+.kicker {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: rgba(255,255,255,.6);
+  display: inline-flex;
+  align-items: center;
+  gap: .9em;
+}
+.kicker::before {
+  content: "";
+  width: 8px; height: 8px;
+  background: currentColor;
+  flex-shrink: 0;
 }
 
 .label {

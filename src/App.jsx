@@ -2,13 +2,15 @@ import { useEffect, useRef, useState } from 'react';
 import { api } from './utils/api.js';
 import Login from './components/Login.jsx';
 import Hub from './components/Hub.jsx';
-import { BrandMark, BRAND_RATIO, SpkSpiral } from './components/SpkLogo.jsx';
+import { SpkLogo, SpkSpiral } from './components/SpkLogo.jsx';
+
+const LOGO_RATIO = 32 / 91;
 
 const reduceMotion = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
 function heroBox() {
-  const w = Math.min(window.innerWidth * 0.82, 980);
-  const h = w * BRAND_RATIO;
+  const w = Math.min(window.innerWidth * 0.7, 860);
+  const h = w * LOGO_RATIO;
   return { left: (window.innerWidth - w) / 2, top: (window.innerHeight - h) / 2 - 24, width: w };
 }
 
@@ -78,7 +80,7 @@ export default function App() {
           style={{ left: flight.left, top: flight.top, width: flight.width }}
           onTransitionEnd={e => { if (flight.landing && e.propertyName === 'width') finishFlight(); }}
         >
-          <BrandMark className="block w-full h-auto" />
+          <SpkLogo className="block w-full h-auto" />
         </div>
       )}
     </>
