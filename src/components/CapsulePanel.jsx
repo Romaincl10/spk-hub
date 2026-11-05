@@ -20,7 +20,7 @@ function ToolRow({ tool, index }) {
             </svg>
           </span>
         ) : (
-          <span className="label !text-[10px] border border-white/30 rounded-full px-3 py-1.5 text-white/50">
+          <span className="label !text-[10px] border border-white/30 rounded-full px-3 py-1.5 text-white/50 !tracking-[0.18em]">
             Bientôt
           </span>
         )}
