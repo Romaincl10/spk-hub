@@ -59,12 +59,18 @@ export default function Login({ onAuth }) {
       <div className="relative flex-1 grid lg:grid-cols-[1.45fr_1fr] gap-12 lg:gap-20 items-center py-10">
         {/* Gauche : SPK en grand */}
         <div className="select-none">
-          <div ref={logoRef} className="rise w-full max-w-[780px]">
+          <div ref={logoRef} className="rise w-[min(400px,62vw)]">
             <SpkLogo className="block w-full h-auto" />
           </div>
           <div className={'rise ' + fade} style={{ animationDelay: '.12s' }}>
-            <h1 className="display text-[clamp(4.5rem,13vw,11rem)] mt-6 lg:mt-8">Hub.</h1>
-            <p className="tagline text-base sm:text-xl mt-6">Toutes les plateformes SPK. En quatre capsules.</p>
+            <h1 className="display hub-outline relative inline-block text-[clamp(7rem,19vw,17rem)] !leading-[0.82] mt-4 lg:mt-6 -ml-[0.04em]">
+              <span aria-hidden="true" className="hub-stroke">Hub.</span>
+              <span className="hub-fill">Hub<span className="hub-dot">.</span></span>
+            </h1>
+            <div className="flex items-center gap-4 mt-8 lg:mt-10">
+              <span className="h-px w-12 bg-white/40 shrink-0" />
+              <p className="text-sm sm:text-[15px] font-medium text-white/55">Toutes les plateformes SPK, en quatre capsules.</p>
+            </div>
           </div>
         </div>
 
@@ -74,9 +80,9 @@ export default function Login({ onAuth }) {
           className={'rise w-full max-w-[420px] lg:justify-self-end rounded-[2rem] border border-white/15 bg-white/[0.04] backdrop-blur-xl p-6 sm:p-8 ' + fade}
           style={{ animationDelay: '.2s' }}
         >
-          <div className="flex items-center justify-between mb-8">
-            <span className="display text-3xl">Connexion</span>
-            <SpkSpiral className="w-8 h-8 text-white" />
+          <div className="flex items-center justify-between gap-4 mb-8">
+            <span className="display text-2xl">Connexion</span>
+            <SpkSpiral className="w-7 h-7 text-white shrink-0" />
           </div>
 
           <div className="space-y-5">

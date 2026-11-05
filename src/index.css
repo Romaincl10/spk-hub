@@ -35,6 +35,18 @@ input, button, textarea, select { font-family: inherit; }
   line-height: 0.9;
 }
 
+/* Mot en contour (vrai Black italique chargé) : seul le point reste plein */
+/* Deux couches : trait épais dessous, remplissage noir dessus → seul le contour extérieur
+   reste visible (masque les jointures internes des glyphes Montserrat) */
+.hub-outline { letter-spacing: 0.02em; padding-right: .08em; }
+.hub-outline .hub-stroke {
+  position: absolute; inset: 0;
+  color: transparent;
+  -webkit-text-stroke: 3px #fff;
+}
+.hub-outline .hub-fill { position: relative; color: #000; }
+.hub-outline .hub-dot { color: #fff; }
+
 /* Sous-titre italique gras capitales */
 .tagline {
   font-weight: 800;
