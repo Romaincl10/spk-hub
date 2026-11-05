@@ -16,8 +16,8 @@ export default function App() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
-        <div className="logo-spk text-5xl text-white opacity-30">SPK</div>
+      <div className="min-h-screen flex items-center justify-center bg-black">
+        <div className="logo-spk text-7xl text-white opacity-30">SPK</div>
       </div>
     );
   }

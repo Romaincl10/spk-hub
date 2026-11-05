@@ -21,48 +21,36 @@ export default function Login({ onAuth }) {
     }
   }
 
+  const input = 'w-full bg-transparent border-0 border-b border-white/30 focus:border-white px-0 py-3 text-white text-lg focus:outline-none transition';
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a] px-6">
-      <div className="w-full max-w-sm">
-        <div className="text-center mb-12">
-          <div className="logo-spk text-6xl text-white mb-2">SPK</div>
-          <div className="text-white/60 text-sm tracking-[0.3em] uppercase">Hub</div>
+    <div className="min-h-screen bg-black text-white flex flex-col px-4 sm:px-10 py-6">
+      <div className="text-[11px] uppercase tracking-[0.3em] font-semibold">SPK Group</div>
+
+      <div className="flex-1 grid lg:grid-cols-[1.4fr_1fr] gap-12 items-center py-10">
+        <div className="select-none">
+          <h1 className="logo-spk rise text-[clamp(7rem,30vw,24rem)]">SPK</h1>
+          <span className="logo-spk text-outline rise block mt-4 text-[clamp(3rem,10vw,8rem)]" style={{ animationDelay: '.12s' }}>HUB</span>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="rise w-full max-w-sm lg:justify-self-end space-y-8" style={{ animationDelay: '.2s' }}>
           <div>
-            <label className="block text-xs uppercase tracking-wider text-white/60 mb-2">Identifiant</label>
-            <input
-              type="text"
-              value={login}
-              onChange={e => setLogin(e.target.value)}
-              autoFocus
-              autoComplete="username"
-              className="w-full bg-white/5 border border-white/10 rounded px-4 py-3 text-white focus:outline-none focus:border-[#e63946] transition"
-            />
+            <label className="block text-[11px] uppercase tracking-[0.3em] text-white/50">Identifiant</label>
+            <input type="text" value={login} onChange={e => setLogin(e.target.value)} autoFocus autoComplete="username" className={input} />
+          </div>
+          <div>
+            <label className="block text-[11px] uppercase tracking-[0.3em] text-white/50">Mot de passe</label>
+            <input type="password" value={password} onChange={e => setPassword(e.target.value)} autoComplete="current-password" className={input} />
           </div>
 
-          <div>
-            <label className="block text-xs uppercase tracking-wider text-white/60 mb-2">Mot de passe</label>
-            <input
-              type="password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              autoComplete="current-password"
-              className="w-full bg-white/5 border border-white/10 rounded px-4 py-3 text-white focus:outline-none focus:border-[#e63946] transition"
-            />
-          </div>
-
-          {error && (
-            <div className="text-[#e63946] text-sm py-2">{error}</div>
-          )}
+          {error && <div className="text-sm text-white border-l-2 border-white pl-3">{error}</div>}
 
           <button
             type="submit"
             disabled={submitting || !login || !password}
-            className="w-full bg-[#e63946] hover:bg-[#d62b38] disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold uppercase tracking-wider py-3 rounded transition"
+            className="w-full rounded-full border border-white bg-white text-black hover:bg-black hover:text-white disabled:opacity-30 disabled:cursor-not-allowed font-bold uppercase tracking-[0.2em] text-sm py-4 transition"
           >
-            {submitting ? 'Connexion…' : 'Se connecter'}
+            {submitting ? 'Connexion…' : 'Entrer'}
           </button>
         </form>
       </div>

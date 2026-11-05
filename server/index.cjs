@@ -80,7 +80,7 @@ app.get('/api/auth/me', auth.requireAuth, (req, res) => {
 });
 
 app.get('/api/tools', auth.requireAuth, (req, res) => {
-  res.json({ sections: tools.list() });
+  res.json(tools.list());
 });
 
 if (NODE_ENV === 'production') {

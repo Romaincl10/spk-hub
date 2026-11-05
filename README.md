@@ -5,12 +5,16 @@ Portail unifié SPK Group — point d'entrée unique vers les outils internes.
 ## Stack
 Stack standard outils internes SPK : React 19 + Vite + Tailwind 4 + Express + JWT + bcrypt + Railway.
 
-## Outils branchés (v1)
-- SPK Dashboard — https://spk-dashboard-production.up.railway.app/
-- SPK DC — https://spk-dc-production.up.railway.app/
-- REFORM CRM — https://reform-crm-production.up.railway.app/
+## Capsules (v2, 2026-11-05)
+Design full noir et blanc, logo SPK géant en Montserrat Black italique, 4 capsules :
+- 01 Farming & Biz Dev : SPK DC (en ligne), Moteur de farming, Moteur de hunting
+- 02 Prestataires : Prestataires & Cockpit (en ligne), SPK Fournisseurs
+- 03 Matériel & Logistique : Résa Matériel (en ligne)
+- 04 Gestion de projet : SPK Projects, Staffing Radar
+- Bandeau Pilotage : SPK Dashboard, SPK Prévisionnel, REFORM CRM
 
-Configuration des tuiles : `server/tools.cjs`. Ajouter SPK Prévisionnel et SPK Fournisseurs dès qu'ils sont déployés.
+Configuration : `server/tools.cjs`. Un outil sans URL s'affiche « Bientôt ». Pour le brancher, poser sa variable d'env
+(FARMING_URL, HUNTING_URL, FOURNISSEURS_URL, PROJECTS_URL, STAFFING_URL) ou écrire l'URL en dur.
 
 ## Auth
 JWT en cookie httpOnly (`spk_hub_token`), bcrypt cost 12. Pattern identique à SPK DC.

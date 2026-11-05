@@ -1,16 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --color-spk-black: #0a0a0a;
-  --color-spk-red: #e63946;
+  --color-spk-black: #000000;
   --color-spk-white: #ffffff;
   --font-display: "Montserrat", system-ui, sans-serif;
   --font-sans: "Montserrat", system-ui, sans-serif;
 }
 
 html, body, #root {
-  height: 100%;
-  background: #0a0a0a;
+  min-height: 100%;
+  background: #000000;
   color: #ffffff;
   font-family: "Montserrat", system-ui, sans-serif;
 }
@@ -18,10 +17,72 @@ html, body, #root {
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
+::selection { background: #fff; color: #000; }
+
+/* Logo : texte, Montserrat Black italique */
 .logo-spk {
   font-family: "Montserrat", system-ui, sans-serif;
-  font-weight: 800;
-  letter-spacing: -0.04em;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -0.06em;
+  line-height: 0.78;
+}
+
+/* Titre géant du hero */
+.hero-logo {
+  font-size: clamp(7rem, 34vw, 30rem);
+}
+
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px #ffffff;
+  letter-spacing: 0.01em;
+}
+
+.display {
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+}
+
+/* Capsules : pilules verticales en desktop, horizontales en mobile */
+.capsule {
+  border-radius: 999px;
+  transition: background-color .35s ease, color .35s ease, transform .35s ease;
+}
+.capsule:hover, .capsule:focus-visible {
+  background: #fff;
+  color: #000;
+  outline: none;
+}
+.capsule:hover .capsule-arrow, .capsule:focus-visible .capsule-arrow {
+  background: #000;
+  color: #fff;
+  transform: rotate(-45deg);
+}
+.capsule-arrow { transition: transform .35s ease, background-color .35s ease, color .35s ease; }
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: none; }
+}
+.rise { animation: rise .8s cubic-bezier(.2,.7,.2,1) both; }
+
+@keyframes panelIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.panel-in { animation: panelIn .3s ease both; }
+
+.tool-row { transition: background-color .25s ease, color .25s ease, padding .25s ease; }
+.tool-row.live:hover { background: #fff; color: #000; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rise, .panel-in { animation: none; }
+  .capsule, .capsule-arrow, .tool-row { transition: none; }
 }
