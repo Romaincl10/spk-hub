@@ -89,7 +89,7 @@ export default function Hub({ user, stage = 'done', brandRef, onLogout }) {
       <header className={'relative z-10 px-4 sm:px-8 lg:px-10 pt-6 pb-5 flex items-center justify-between gap-4 transition-opacity duration-500 ' +
         (showContent ? 'opacity-100' : 'opacity-0')}>
         <div className="flex items-center gap-4 shrink-0">
-          <div ref={brandRef} className="w-[96px] sm:w-[120px]">
+          <div ref={brandRef} className="w-[150px] sm:w-[190px]">
             <SpkLogo className={'block w-full h-auto ' + (stage === 'done' ? 'opacity-100' : 'opacity-0')} />
           </div>
           <span className="w-px h-7 bg-white/40" />
