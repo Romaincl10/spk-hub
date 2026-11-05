@@ -98,6 +98,12 @@ input, button, textarea, select { font-family: inherit; }
     width .95s cubic-bezier(.76, 0, .24, 1);
 }
 
+@keyframes brandAppear {
+  from { opacity: 0; transform: scale(.9); filter: blur(10px); }
+  to   { opacity: 1; transform: none; filter: none; }
+}
+.brand-flight.is-appearing { animation: brandAppear .8s cubic-bezier(.2,.8,.2,1) both; }
+
 /* Carte de connexion */
 .login-card { box-shadow: 0 30px 80px -30px rgba(0,0,0,.9), inset 0 1px 0 rgba(255,255,255,.06); }
 .login-card.is-leaving {
@@ -145,8 +151,8 @@ input, button, textarea, select { font-family: inherit; }
 .tool-row.live:hover { background: #fff; color: #000; }
 
 @media (prefers-reduced-motion: reduce) {
-  .rise, .panel-in, .spiral-bg, .capsule-in { animation: none; }
-  .capsule, .capsule-arrow, .capsule-spiral, .capsule-spiral-bg, .tool-row, .brand-flight.is-animated { transition: none; }
+  .rise, .panel-in, .spiral-bg { animation: none; }
+  .capsule, .capsule-arrow, .capsule-spiral, .capsule-spiral-bg, .tool-row { transition: none; }
 }
 
 /* Capsule pas encore disponible : pas d'effet au survol */

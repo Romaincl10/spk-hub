@@ -4,8 +4,6 @@ import Login from './components/Login.jsx';
 import Hub from './components/Hub.jsx';
 import { SpkLogo, SpkSpiral, LOGO_RATIO } from './components/SpkLogo.jsx';
 
-const reduceMotion = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-
 function heroBox() {
   const w = Math.min(window.innerWidth * 0.7, 860);
   const h = w * LOGO_RATIO;
@@ -23,25 +21,29 @@ export default function App() {
 
   useEffect(() => {
     api.me()
-      .then(d => setUser(d.user))
+      .then(d => { setUser(d.user); playIntro(null); }) // session déjà ouverte : l'intro joue aussi
       .catch(() => setUser(null))
       .finally(() => setLoading(false));
     return () => timers.current.forEach(clearTimeout);
   }, []);
 
   function handleAuth(u, fromRect) {
-    if (reduceMotion() || !fromRect) {
-      setUser(u);
-      setStage('done');
-      return;
-    }
-    // 1. le logo volant se pose exactement sur le logo du login
-    setFlight({ left: fromRect.left, top: fromRect.top, width: fromRect.width, animate: false });
     setUser(u);
+    playIntro(fromRect || null);
+  }
+
+  // Intro de marque : depuis le logo du login (ou apparition au centre), grandit, puis file dans l'en-tête
+  function playIntro(fromRect) {
+    timers.current.forEach(clearTimeout);
+    timers.current = [];
+    const hero = heroBox();
+    // 1. point de départ : le logo du login, sinon apparition directe au centre
+    setFlight(fromRect
+      ? { left: fromRect.left, top: fromRect.top, width: fromRect.width, animate: false }
+      : { ...hero, animate: false, appear: true });
     setStage('intro');
-    // 2. il grandit au centre de l'écran
-    // (timer plutôt que requestAnimationFrame : fonctionne aussi dans un onglet en arrière-plan)
-    timers.current.push(setTimeout(() => setFlight({ ...heroBox(), animate: true }), 40));
+    // 2. il grandit / se pose au centre (timer : fonctionne aussi dans un onglet en arrière-plan)
+    timers.current.push(setTimeout(() => setFlight(f => ({ ...heroBox(), animate: true, appear: f?.appear })), 40));
     // 3. il rapetisse vers l'en-tête, les 4 capsules prennent la place
     timers.current.push(setTimeout(() => {
       const r = hubBrandRef.current?.getBoundingClientRect();
@@ -49,7 +51,7 @@ export default function App() {
       setStage('settling');
       // filet de sécurité si transitionend n'arrive pas
       timers.current.push(setTimeout(finishFlight, 1600));
-    }, 1250));
+    }, fromRect ? 1250 : 1400));
   }
 
   // 4. relais au logo de l'en-tête, à la fin réelle de la transition
@@ -74,7 +76,7 @@ export default function App() {
 
       {flight && (
         <div
-          className={'brand-flight fixed z-[60] pointer-events-none text-white' + (flight.animate ? ' is-animated' : '')}
+          className={'brand-flight fixed z-[60] pointer-events-none text-white' + (flight.animate ? ' is-animated' : '') + (flight.appear ? ' is-appearing' : '')}
           style={{ left: flight.left, top: flight.top, width: flight.width }}
           onTransitionEnd={e => { if (flight.landing && e.propertyName === 'width') finishFlight(); }}
         >
