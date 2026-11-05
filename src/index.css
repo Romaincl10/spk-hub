@@ -17,72 +17,67 @@ html, body, #root {
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1;
   overflow-x: hidden;
 }
 
 ::selection { background: #fff; color: #000; }
 
-/* Logo : texte, Montserrat Black italique */
-.logo-spk {
-  font-family: "Montserrat", system-ui, sans-serif;
-  font-weight: 900;
-  font-style: italic;
-  letter-spacing: -0.06em;
-  line-height: 0.78;
-}
-
-/* Titre géant du hero */
-.hero-logo {
-  font-size: clamp(7rem, 34vw, 30rem);
-}
-
-.text-outline {
-  color: transparent;
-  -webkit-text-stroke: 1.5px #ffffff;
-  letter-spacing: 0.01em;
-}
-
+/* Titres : Montserrat ExtraBold droit, capitales, approche neutre */
 .display {
-  font-weight: 900;
-  font-style: italic;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: -0.03em;
-  line-height: 0.9;
+  letter-spacing: -0.005em;
+  line-height: 1.02;
 }
 
-/* Capsules : pilules verticales en desktop, horizontales en mobile */
+/* Petites capitales espacées (labels) */
+.label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+}
+
+/* Spirale géante en fond, rotation lente */
+@keyframes spin { to { transform: rotate(360deg); } }
+.spiral-bg { animation: spin 120s linear infinite; transform-origin: 50% 50%; }
+
+/* Capsules */
 .capsule {
   border-radius: 999px;
-  transition: background-color .35s ease, color .35s ease, transform .35s ease;
+  transition: background-color .35s ease, color .35s ease;
 }
 .capsule:hover, .capsule:focus-visible {
   background: #fff;
   color: #000;
   outline: none;
 }
+.capsule-arrow { transition: transform .35s ease, background-color .35s ease, color .35s ease, border-color .35s ease; }
 .capsule:hover .capsule-arrow, .capsule:focus-visible .capsule-arrow {
   background: #000;
+  border-color: #000;
   color: #fff;
   transform: rotate(-45deg);
 }
-.capsule-arrow { transition: transform .35s ease, background-color .35s ease, color .35s ease; }
+.capsule-spiral { transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+.capsule:hover .capsule-spiral { transform: rotate(90deg); }
 
 @keyframes rise {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: none; }
 }
 .rise { animation: rise .8s cubic-bezier(.2,.7,.2,1) both; }
 
-@keyframes panelIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
+@keyframes panelIn { from { opacity: 0; } to { opacity: 1; } }
 .panel-in { animation: panelIn .3s ease both; }
 
-.tool-row { transition: background-color .25s ease, color .25s ease, padding .25s ease; }
+.tool-row { transition: background-color .25s ease, color .25s ease; }
 .tool-row.live:hover { background: #fff; color: #000; }
 
 @media (prefers-reduced-motion: reduce) {
-  .rise, .panel-in { animation: none; }
-  .capsule, .capsule-arrow, .tool-row { transition: none; }
+  .rise, .panel-in, .spiral-bg { animation: none; }
+  .capsule, .capsule-arrow, .capsule-spiral, .tool-row { transition: none; }
 }

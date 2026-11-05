@@ -6,7 +6,7 @@ const CAPSULES = [
   {
     id: 'farming',
     code: '01',
-    title: 'Farming & Biz Dev',
+    title: 'Farming & Biz Dev',
     tagline: 'Portefeuilles, opportunités, plans de farming et de hunting.',
     tools: [
       {

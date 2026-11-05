@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { api } from './utils/api.js';
 import Login from './components/Login.jsx';
 import Hub from './components/Hub.jsx';
+import { SpkSpiral } from './components/SpkLogo.jsx';
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -17,7 +18,7 @@ export default function App() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-black">
-        <div className="logo-spk text-7xl text-white opacity-30">SPK</div>
+        <SpkSpiral className="spiral-bg w-20 h-20 text-white opacity-40" />
       </div>
     );
   }
