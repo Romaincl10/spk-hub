@@ -2,9 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { api } from './utils/api.js';
 import Login from './components/Login.jsx';
 import Hub from './components/Hub.jsx';
-import { SpkLogo, SpkSpiral } from './components/SpkLogo.jsx';
-
-const LOGO_RATIO = 32 / 91;
+import { SpkLogo, SpkSpiral, LOGO_RATIO } from './components/SpkLogo.jsx';
 
 const reduceMotion = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 

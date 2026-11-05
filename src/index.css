@@ -148,3 +148,6 @@ input, button, textarea, select { font-family: inherit; }
   .rise, .panel-in, .spiral-bg, .capsule-in { animation: none; }
   .capsule, .capsule-arrow, .capsule-spiral, .capsule-spiral-bg, .tool-row, .brand-flight.is-animated { transition: none; }
 }
+
+/* Capsule pas encore disponible : pas d'effet au survol */
+.capsule-off { border-style: dashed; border-color: rgba(255,255,255,.18); background: transparent; }

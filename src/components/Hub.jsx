@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { api } from '../utils/api.js';
-import CapsulePanel from './CapsulePanel.jsx';
 import { SpkLogo, SpkSpiral } from './SpkLogo.jsx';
 
 function Arrow({ className = '' }) {
@@ -11,14 +10,16 @@ function Arrow({ className = '' }) {
   );
 }
 
-function Capsule({ capsule, index, onOpen, show }) {
-  const live = capsule.tools.filter(t => t.status === 'prod').length;
+function Capsule({ capsule, index, show }) {
+  const live = Boolean(capsule.url);
+  const Tag = live ? 'a' : 'div';
+  const linkProps = live ? { href: capsule.url, target: '_blank', rel: 'noopener noreferrer' } : { 'aria-disabled': 'true' };
   return (
-    <button
-      type="button"
-      onClick={() => onOpen(capsule)}
+    <Tag
+      {...linkProps}
       style={{ animationDelay: `${index * 0.09}s` }}
-      className={'capsule group relative w-full text-left overflow-hidden rounded-[2.25rem] border border-white/12 bg-white/[0.03] text-white ' +
+      className={(live ? 'capsule ' : 'capsule-off cursor-not-allowed ') +
+        'group relative w-full text-left overflow-hidden rounded-[2.25rem] border border-white/12 bg-white/[0.03] text-white ' +
         'flex flex-col justify-between gap-8 p-7 sm:p-8 min-h-[15rem] md:min-h-[21rem] xl:min-h-0 xl:h-full ' + (show ? 'capsule-in' : 'opacity-0')}
     >
       {/* grande spirale dans le coin */}
@@ -26,43 +27,43 @@ function Capsule({ capsule, index, onOpen, show }) {
 
       <div className="relative flex items-start justify-between">
         <span className="kicker !text-current opacity-60 pt-1 whitespace-nowrap">Capsule {capsule.code}</span>
-        <span className="capsule-arrow w-12 h-12 rounded-full border border-current/30 flex items-center justify-center shrink-0">
-          <Arrow className="w-5 h-5" />
-        </span>
+        {live ? (
+          <span className="capsule-arrow w-12 h-12 rounded-full border border-current/30 flex items-center justify-center shrink-0">
+            <Arrow className="w-5 h-5 -rotate-45" />
+          </span>
+        ) : (
+          <span className="rounded-full border border-white/25 px-3.5 py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-white/60">Bientôt</span>
+        )}
       </div>
 
-      <div className="relative">
+      <div className={'relative ' + (live ? '' : 'opacity-45')}>
         <SpkSpiral className="capsule-spiral w-9 h-9 mb-5 lg:mb-7" />
         <h2 className="display text-[2rem] sm:text-[2.4rem] xl:text-[clamp(1.5rem,1.9vw,2.7rem)]">
           {capsule.title}
         </h2>
-        <p className="mt-3 text-sm leading-relaxed opacity-55 max-w-[26ch]">{capsule.tagline}</p>
+        <p className="mt-3 text-sm leading-relaxed opacity-60 max-w-[26ch]">{capsule.tagline}</p>
       </div>
 
-      <div className="relative border-t border-current/15 pt-5">
-        <div className="text-[11px] font-semibold uppercase tracking-[0.18em] opacity-45 mb-3">
-          {live}/{capsule.tools.length} en ligne
-        </div>
-        <ul className="flex flex-col gap-1.5 text-[13px] font-medium">
-          {capsule.tools.map(t => (
-            <li key={t.id} className="flex items-center gap-2.5">
-              <span className={'w-1.5 h-1.5 rounded-full shrink-0 ' + (t.status === 'prod' ? 'bg-current' : 'border border-current opacity-50')} />
-              <span className={t.status === 'prod' ? 'opacity-90' : 'opacity-45'}>{t.name}</span>
-            </li>
-          ))}
-        </ul>
+      <div className="relative border-t border-current/15 pt-5 flex items-center justify-between gap-3">
+        {live ? (
+          <>
+            <span className="text-[13px] font-bold">{capsule.platform}</span>
+            <span className="text-[11px] font-semibold uppercase tracking-[0.18em] opacity-55">Ouvrir</span>
+          </>
+        ) : (
+          <span className="text-[13px] font-medium text-white/40">Plateforme en préparation</span>
+        )}
       </div>
-    </button>
+    </Tag>
   );
 }
 
 export default function Hub({ user, stage = 'done', brandRef, onLogout }) {
-  const [data, setData] = useState({ capsules: [], pilotage: [] });
-  const [open, setOpen] = useState(null);
+  const [data, setData] = useState({ capsules: [] });
 
   useEffect(() => {
     api.tools()
-      .then(d => setData({ capsules: d.capsules || [], pilotage: d.pilotage || [] }))
+      .then(d => setData({ capsules: d.capsules || [] }))
       .catch(() => {});
   }, []);
 
@@ -113,13 +114,12 @@ export default function Hub({ user, stage = 'done', brandRef, onLogout }) {
       <main className="relative z-10 flex-1 min-h-0 px-4 sm:px-8 lg:px-10 pb-6 lg:pb-8">
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 xl:h-full">
           {data.capsules.map((c, i) => (
-            <Capsule key={c.id} capsule={c} index={i} onOpen={setOpen} show={showContent} />
+            <Capsule key={c.id} capsule={c} index={i} show={showContent} />
           ))}
         </div>
 
       </main>
 
-      {open && <CapsulePanel capsule={open} onClose={() => setOpen(null)} />}
     </div>
   );
 }

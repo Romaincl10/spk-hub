@@ -1,36 +1,27 @@
-import { WORDMARK_D, SPIRAL_D } from './logoPaths.js';
+import { SPIRAL_D } from './logoPaths.js';
 
-// Logo officiel : spirale + SPK
+// Logo SPK : trois lettres en Montserrat ExtraBold (texte, pas d'image).
+// En SVG pour qu'il se mette à l'échelle d'un bloc pendant la transition.
+export const LOGO_W = 213;
+export const LOGO_H = 74;
+export const LOGO_RATIO = LOGO_H / LOGO_W;
+
 export function SpkLogo({ className = '', title = 'SPK' }) {
   return (
-    <svg className={className} viewBox="0 0 91 32" role="img" aria-label={title} xmlns="http://www.w3.org/2000/svg">
-      <path d={SPIRAL_D} fill="currentColor" />
-      <path d={WORDMARK_D} fill="currentColor" />
-    </svg>
-  );
-}
-
-// Marque complète SPK | HUB (un seul SVG : tout se met à l'échelle ensemble)
-export const BRAND_RATIO = 32 / 174;
-export function BrandMark({ className = '', style }) {
-  return (
-    <svg className={className} style={style} viewBox="0 0 174 32" role="img" aria-label="SPK Hub" xmlns="http://www.w3.org/2000/svg">
-      <path d={SPIRAL_D} fill="currentColor" />
-      <path d={WORDMARK_D} fill="currentColor" />
-      <rect x="98.5" y="5.2" width="0.7" height="19.3" fill="currentColor" opacity="0.45" />
+    <svg className={className} viewBox={`0 0 ${LOGO_W} ${LOGO_H}`} role="img" aria-label={title} xmlns="http://www.w3.org/2000/svg">
       <text
-        x="105.5"
-        y="24.5"
+        x="-1"
+        y="72"
         fill="currentColor"
-        style={{ fontFamily: 'Montserrat, system-ui, sans-serif', fontWeight: 300, fontSize: '26.6px', letterSpacing: '1.2px' }}
+        style={{ fontFamily: 'Montserrat, system-ui, sans-serif', fontWeight: 800, fontSize: '100px', letterSpacing: '-1px' }}
       >
-        HUB
+        SPK
       </text>
     </svg>
   );
 }
 
-// Spirale seule
+// Spirale seule (décor)
 export function SpkSpiral({ className = '', style }) {
   return (
     <svg className={className} style={style} viewBox="0 0 32 32" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">

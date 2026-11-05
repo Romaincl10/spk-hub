@@ -59,7 +59,7 @@ export default function Login({ onAuth }) {
       <div className="relative flex-1 grid lg:grid-cols-[1.45fr_1fr] gap-12 lg:gap-20 items-center py-10">
         {/* Gauche : SPK en grand */}
         <div className="select-none">
-          <div ref={logoRef} className="rise w-[min(400px,62vw)]">
+          <div ref={logoRef} className="rise w-[min(260px,52vw)]">
             <SpkLogo className="block w-full h-auto" />
           </div>
           <div className={'rise ' + fade} style={{ animationDelay: '.12s' }}>
